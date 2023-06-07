@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dispositivosmoviles.R
 import com.example.dispositivosmoviles.databinding.ActivityPrincipalBinding
+import com.google.android.material.snackbar.Snackbar
 
 class PrincipalActivity : AppCompatActivity() {
 
@@ -24,9 +25,9 @@ class PrincipalActivity : AppCompatActivity() {
         super.onStart()
 
         var name: String = ""
-        intent.extras?.let {
-            name = it.getString("var1") ?: ""
-        }
+        //intent.extras?.let {
+        //    name = it.getString("var1") ?: ""
+        //}
 
         Log.d("UCE", "Hello $name")
         binding.textView.text = "Welcome $name!"
@@ -44,6 +45,34 @@ class PrincipalActivity : AppCompatActivity() {
                 )
             )
         }
+
+
+    binding.bottomNavigation.setOnItemReselectedListener { item ->
+        when(item.itemId) {
+            R.id.Inicio -> {
+                var suma:Int=0
+                for(i in listOf(1,2,3)){
+                    suma +=i
+                }
+                Snackbar.make(binding.textView,"la suma es ${suma}",Snackbar.LENGTH_LONG).show()
+                true
+            }
+            R.id.Favorito -> {
+                var suma:Int=0
+                for(i in listOf(8,12,13)){
+                    suma +=i
+                }
+                Snackbar.make(binding.textView,"la suma es ${suma}",Snackbar.LENGTH_LONG).show()
+                true
+            }
+
+            R.id.Chat_gpt -> {
+                // Respond to navigation item 2 click
+                true
+            }
+            else -> false
+        }
     }
 
+    }
 }
