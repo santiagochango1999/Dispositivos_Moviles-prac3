@@ -9,12 +9,11 @@
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.cardview.widget.CardView
+        android:id="@+id/CardView"
         android:layout_width="match_parent"
         android:layout_height="230dp"
-        android:elevation="10dp"
         android:layout_margin="35dp"
         app:cardCornerRadius="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -23,23 +22,51 @@
             android:id="@+id/imageView3"
             android:layout_width="match_parent"
             android:layout_height="129dp"
-            android:src="@drawable/logo_chat_gpt"
             android:layout_marginTop="23dp"
+            android:src="@drawable/logo_chat_gpt"
             android:visibility="visible" />
 
         <TextView
             android:id="@+id/textView10"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="bottom|center_horizontal"
-            android:fontFamily="@font/roboto"
-            android:text="Primer Fragment"
-            android:textSize="42sp"
             android:layout_marginBottom="18dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="bottom|center_horizontal"
+            android:text="Primer Fragment"
             android:textColor="@color/azul"
-            android:textStyle="bold"/>
+            android:textSize="42sp"
+            android:textStyle="bold" />
 
 
     </androidx.cardview.widget.CardView>
+    <Spinner
+        android:id="@+id/spinnerFfirst"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CardView"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="390dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerFfirst"
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/MarvelChars"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

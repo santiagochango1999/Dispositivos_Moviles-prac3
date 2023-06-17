@@ -3,11 +3,14 @@ package com.example.dispositivosmoviles.ui.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dispositivosmoviles.R
 import com.example.dispositivosmoviles.databinding.ActivityPrincipalBinding
 import com.example.dispositivosmoviles.ui.fragment.FirstFragment
-import com.google.android.material.snackbar.Snackbar
+import com.example.dispositivosmoviles.ui.fragment.segundoFragment
+import com.example.dispositivosmoviles.ui.fragment.terceroFragment
+import com.example.dispositivosmoviles.ui.ui.utilities.FragmentManager
 
 class PrincipalActivity : AppCompatActivity() {
 
@@ -47,34 +50,64 @@ class PrincipalActivity : AppCompatActivity() {
             )
         }
 
+        binding.bottomNavigation.setOnItemReselectedListener { item ->
+            when (item.itemId) {
+                R.id.Inicio -> {
+                    FragmentManager().replaceFragment(
+                        supportFragmentManager,
+                        binding.frContainer.id, FirstFragment()
+                    )
+                    /*val frag = FirstFragment()
+                    val transacction = supportFragmentManager.beginTransaction()
 
-    binding.bottomNavigation.setOnItemReselectedListener { item ->
-        when(item.itemId) {
-            R.id.Inicio -> {
-                val frag=FirstFragment()
-                val transacction=supportFragmentManager.beginTransaction()
-                transacction.add(binding.frContainer.id,frag) //necesitamos un contenedor (binding.frContainer.id) y un objeto (frag)
-                transacction.addToBackStack(null)
-                transacction.commit()
-
-                true
-            }
-            R.id.Favorito -> {
-                var suma:Int=0
-                for(i in listOf(8,12,13)){
-                    suma +=i
+                    transacction.add(
+                        binding.frContainer.id,
+                        frag
+                    ) //necesitamos un contenedor (binding.frContainer.id) y un objeto (frag)
+                    transacction.addToBackStack(null)
+                    transacction.commit()
+*/
+                    true
                 }
-                Snackbar.make(binding.textView,"la suma es ${suma}",Snackbar.LENGTH_LONG).show()
-                true
-            }
 
-            R.id.Chat_gpt -> {
-                // Respond to navigation item 2 click
-                true
+                R.id.Favorito -> {
+                    FragmentManager().replaceFragment(
+                        supportFragmentManager,
+                        binding.frContainer2.id, segundoFragment()
+                    )
+                    //var frag1=segundoFragment()
+                    //var transacction1=supportFragmentManager.beginTransaction()
+
+//                transacction1.add(binding.frContainer2.id,frag1)
+                    //               transacction1.addToBackStack(null)
+                    //              transacction1.commit()
+
+                    true
+                }
+
+                R.id.Chat_gpt -> {
+                    FragmentManager().replaceFragment(
+                        supportFragmentManager,
+                        binding.frContainer.id, terceroFragment()
+                    )
+                   /* var frag2 = terceroFragment()
+                    var transacction3 = supportFragmentManager.beginTransaction()
+                    transacction3.add(binding.frContainer.id, frag2)
+                    transacction3.addToBackStack(null)
+                    transacction3.commit()
+*/
+                    true
+                }
+
+                else -> false
             }
-            else -> false
         }
-    }
+
 
     }
+
+    override fun onBackPressed() {
+        super.onStart()
+    }
+
 }
