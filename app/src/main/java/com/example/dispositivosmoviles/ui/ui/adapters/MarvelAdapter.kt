@@ -6,24 +6,30 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dispositivosmoviles.R
 import com.example.dispositivosmoviles.databinding.MarvelCharactersBinding
-import com.example.dispositivosmoviles.ui.logic.entities.marvel.MarvelChars
-import com.google.android.material.snackbar.Snackbar
+import com.example.dispositivosmoviles.ui.data.entities.marvel.MarvelChars
 import com.squareup.picasso.Picasso
 
-class MarvelAdapter(private val items: List<MarvelChars>) :
+class MarvelAdapter(
+    private val items: List<MarvelChars>,
+    private var fnClick:(MarvelChars) ->Unit
+) :
     RecyclerView.Adapter<MarvelAdapter.MarvelViewHolder>() {
 
     class MarvelViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding: MarvelCharactersBinding = MarvelCharactersBinding.bind(view)
 
-        fun render(item: MarvelChars) {
+        fun render(
+            item: MarvelChars,
+            fnClick:(MarvelChars) ->Unit
+        ) {
             binding.txtName.text = item.name //enlaso el texto con el comic
             binding.txtComic.text = item.comic
             Picasso.get().load(item.imagen).into(binding.imgmarvel)//enlaza la imagen
 
             //funcion
-            binding.imgmarvel.setOnClickListener{
-                Snackbar.make(binding.imgmarvel,item.name,Snackbar.LENGTH_SHORT).show()
+            itemView.setOnClickListener{
+                fnClick(item)
+                //               Snackbar.make(binding.imgmarvel,item.name,Snackbar.LENGTH_SHORT).show() //lanza mensaje
             }
         }
     }
@@ -44,7 +50,7 @@ class MarvelAdapter(private val items: List<MarvelChars>) :
     }
 
     override fun onBindViewHolder(holder: MarvelAdapter.MarvelViewHolder, position: Int) {
-        holder.render(items[position])
+        holder.render(items[position],fnClick)
     }
 
     override fun getItemCount(): Int = items.size

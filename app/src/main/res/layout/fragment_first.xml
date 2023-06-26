@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.fragment.FirstFragment">
+    tools:context=".ui.ui.fragment.FirstFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.cardview.widget.CardView
@@ -40,6 +40,7 @@
 
 
     </androidx.cardview.widget.CardView>
+
     <Spinner
         android:id="@+id/spinnerFfirst"
         android:layout_width="match_parent"
@@ -47,26 +48,32 @@
         android:layout_margin="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CardView"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/CardView" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginRight="25dp"
         android:layout_marginLeft="25dp"
-        android:layout_marginBottom="25dp"
         android:layout_marginTop="390dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerFfirst"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/spinnerFfirst">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvMarvelChars"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/rvSwipe"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMarvelChars"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

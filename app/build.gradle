@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id("kotlin-parcelize")
 }
 
 android {
@@ -42,6 +43,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    //para refrescar informacion
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -49,4 +53,13 @@ dependencies {
     //para imagenes
     implementation 'com.squareup.picasso:picasso:2.8'
 
+    //retrofit api nos permite conectar a la api y que nos den una respuesta
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+
+    //necesitamos de gson para esto utilizamos nos ayuda a convertir de un gson a un objeto
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    //corutinas
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.3")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
 }

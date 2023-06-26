@@ -7,9 +7,9 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dispositivosmoviles.R
 import com.example.dispositivosmoviles.databinding.ActivityPrincipalBinding
-import com.example.dispositivosmoviles.ui.fragment.FirstFragment
-import com.example.dispositivosmoviles.ui.fragment.segundoFragment
-import com.example.dispositivosmoviles.ui.fragment.terceroFragment
+import com.example.dispositivosmoviles.ui.ui.fragment.FirstFragment
+import com.example.dispositivosmoviles.ui.ui.fragment.segundoFragment
+import com.example.dispositivosmoviles.ui.ui.fragment.terceroFragment
 import com.example.dispositivosmoviles.ui.ui.utilities.FragmentManager
 
 class PrincipalActivity : AppCompatActivity() {
