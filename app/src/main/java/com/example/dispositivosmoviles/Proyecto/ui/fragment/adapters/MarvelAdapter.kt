@@ -10,12 +10,14 @@ import com.example.dispositivosmoviles.Proyecto.data.entities.marvel.MarvelChars
 import com.squareup.picasso.Picasso
 
 class MarvelAdapter(
-    private val items: List<MarvelChars>,
     private var fnClick:(MarvelChars) ->Unit
 ) :
     RecyclerView.Adapter<MarvelAdapter.MarvelViewHolder>() {
-
+    var items: List<MarvelChars> = listOf()
     class MarvelViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+
+
         private val binding: MarvelCharactersBinding = MarvelCharactersBinding.bind(view)
 
         fun render(
@@ -54,5 +56,10 @@ class MarvelAdapter(
     }
 
     override fun getItemCount(): Int = items.size
+
+    fun updateListItems(newItems:List<MarvelChars>){
+        this.items =this.items.plus(newItems)//plus agrega a los nuevos elementos
+        notifyDataSetChanged()
+    }
 
 }
