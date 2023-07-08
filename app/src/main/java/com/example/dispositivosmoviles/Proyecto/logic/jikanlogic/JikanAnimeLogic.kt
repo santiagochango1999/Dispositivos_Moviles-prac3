@@ -1,8 +1,8 @@
-package com.example.dispositivosmoviles.Proyecto.data.logic.jikanlogic
+package com.example.dispositivosmoviles.Proyecto.logic.jikanlogic
 
 import com.example.dispositivosmoviles.Proyecto.data.connections.ApiConnection
 import com.example.dispositivosmoviles.Proyecto.data.endpoints.JikanEndpoint
-import com.example.dispositivosmoviles.Proyecto.data.entities.marvel.MarvelChars
+import com.example.dispositivosmoviles.Proyecto.logic.data.MarvelChars
 
 class JikanAnimeLogic {
 

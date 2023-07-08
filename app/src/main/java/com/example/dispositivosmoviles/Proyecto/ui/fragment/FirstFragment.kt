@@ -6,17 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dispositivosmoviles.R
-import com.example.dispositivosmoviles.databinding.FragmentFirstBinding
-import com.example.dispositivosmoviles.Proyecto.data.entities.marvel.MarvelChars
-import com.example.dispositivosmoviles.Proyecto.data.logic.jikanlogic.JikanAnimeLogic
-import com.example.dispositivosmoviles.Proyecto.data.logic.marvellogic.MarvelLogic
+import com.example.dispositivosmoviles.Proyecto.logic.data.MarvelChars
+import com.example.dispositivosmoviles.Proyecto.logic.jikanlogic.JikanAnimeLogic
+import com.example.dispositivosmoviles.Proyecto.logic.marvellogic.MarvelLogic
 import com.example.dispositivosmoviles.Proyecto.ui.activities.DetailsMarvelItem
 import com.example.dispositivosmoviles.Proyecto.ui.fragment.adapters.MarvelAdapter
+import com.example.dispositivosmoviles.R
+import com.example.dispositivosmoviles.databinding.FragmentFirstBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -25,7 +26,11 @@ class FirstFragment : Fragment() {
 
     private lateinit var binding: FragmentFirstBinding
     private lateinit var lmanager: LinearLayoutManager
-    private var rvAdapter: MarvelAdapter= MarvelAdapter { sendMarvelItem(it) }
+    private lateinit var rvAdapter: MarvelAdapter
+//    private var rvAdapter: MarvelAdapter  MarvelAdapter{sendMarvelItem(it)}
+
+    private var page = 1
+    private var marvelCharsItems: MutableList<MarvelChars> = mutableListOf<MarvelChars>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -96,6 +101,14 @@ class FirstFragment : Fragment() {
                 }
             })
 
+        //nos sirve para filtrar la informacion
+        binding.textfilder.addTextChangedListener { textfilter ->
+            var newItems = marvelCharsItems.filter { items ->
+                items.name.lowercase().contains(textfilter.toString().lowercase())
+            }
+            rvAdapter.replaceListItems(newItems)
+        }
+
 
     }
 
@@ -111,22 +124,31 @@ class FirstFragment : Fragment() {
         //  ListItems().returnMarvelChars()
         //) { sendMarvelItem(it) }//entre llaves se manda los lambdas
 
-        lifecycleScope.launch(Dispatchers.IO) {
-
-            rvAdapter.items = JikanAnimeLogic().getAllanimes()
-
-            withContext(Dispatchers.Main) {
-
-                with(binding.rvMarvelChars) {
-                    this.adapter = rvAdapter
-                    this.layoutManager = lmanager
-                    /*this.layoutManager=LinearLayoutManager(
-                        requireActivity(),
-                        LinearLayoutManager.VERTICAL,
-                        false
-                    )*/
-                }
+        lifecycleScope.launch(Dispatchers.Main) {
+            //cambiamos a IO porque era una coneccion de dato
+            marvelCharsItems = withContext(Dispatchers.IO) {
+                return@withContext (MarvelLogic().getMarvelChars(
+                    "spider",
+                    page * 5
+                ))
             }
+            rvAdapter = MarvelAdapter(
+                marvelCharsItems,
+                fnClick = { sendMarvelItem(it) }
+            )
+
+            //rvAdapter.items = JikanAnimeLogic().getAllanimes()
+
+            binding.rvMarvelChars.apply {
+                this.adapter = rvAdapter
+                this.layoutManager = lmanager
+                /*this.layoutManager=LinearLayoutManager(
+                    requireActivity(),
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )*/
+            }
+
         }
 
 

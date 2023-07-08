@@ -1,7 +1,7 @@
 package com.example.dispositivosmoviles.Proyecto.data.validator
 
 import com.example.dispositivosmoviles.Proyecto.data.entities.LoginUser
-import com.example.dispositivosmoviles.Proyecto.data.entities.marvel.MarvelChars
+import com.example.dispositivosmoviles.Proyecto.logic.data.MarvelChars
 
 class ListItems {
     fun returnItems(): List<LoginUser> {

@@ -1,9 +1,9 @@
-package com.example.dispositivosmoviles.Proyecto.data.logic.marvellogic
+package com.example.dispositivosmoviles.Proyecto.logic.marvellogic
 
 import android.util.Log
 import com.example.dispositivosmoviles.Proyecto.data.connections.ApiConnection
 import com.example.dispositivosmoviles.Proyecto.data.endpoints.MarvelEndPoint
-import com.example.dispositivosmoviles.Proyecto.data.entities.marvel.MarvelChars
+import com.example.dispositivosmoviles.Proyecto.logic.data.MarvelChars
 
 class MarvelLogic {
 
@@ -21,6 +21,7 @@ class MarvelLogic {
 
         if (call != null) {
             val response = call.getCharactersStartsWith(name, limit)
+            Log.d("UCE", response.toString())
             if (response.isSuccessful) {
                 response.body()!!.data.results.forEach {
                     var commic: String = "No available"

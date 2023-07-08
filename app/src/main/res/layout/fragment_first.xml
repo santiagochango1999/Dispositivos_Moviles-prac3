@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
     android:background="@color/white"
     tools:context=".Proyecto.ui.fragment.FirstFragment">
 
@@ -57,11 +58,21 @@
         android:layout_marginTop="390dp"
         android:layout_marginRight="25dp"
         android:layout_marginBottom="25dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerFfirst">
 
+        <EditText
+            android:id="@+id/textfilder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:imeOptions="actionDone"
+            android:textSize="14sp"/>
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/rvSwipe"
             android:layout_width="match_parent"

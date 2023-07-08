@@ -4,32 +4,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dispositivosmoviles.Proyecto.logic.data.MarvelChars
 import com.example.dispositivosmoviles.R
 import com.example.dispositivosmoviles.databinding.MarvelCharactersBinding
-import com.example.dispositivosmoviles.Proyecto.data.entities.marvel.MarvelChars
 import com.squareup.picasso.Picasso
 
 class MarvelAdapter(
-    private var fnClick:(MarvelChars) ->Unit
+    private var items: List<MarvelChars>,
+    private var fnClick: (MarvelChars) -> Unit
 ) :
     RecyclerView.Adapter<MarvelAdapter.MarvelViewHolder>() {
-    var items: List<MarvelChars> = listOf()
     class MarvelViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
 
 
         private val binding: MarvelCharactersBinding = MarvelCharactersBinding.bind(view)
 
         fun render(
             item: MarvelChars,
-            fnClick:(MarvelChars) ->Unit
+            fnClick: (MarvelChars) -> Unit
         ) {
             binding.txtName.text = item.name //enlaso el texto con el comic
             binding.txtComic.text = item.comic
             Picasso.get().load(item.imagen).into(binding.imgmarvel)//enlaza la imagen
 
             //funcion
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 fnClick(item)
                 //               Snackbar.make(binding.imgmarvel,item.name,Snackbar.LENGTH_SHORT).show() //lanza mensaje
             }
@@ -52,13 +51,18 @@ class MarvelAdapter(
     }
 
     override fun onBindViewHolder(holder: MarvelViewHolder, position: Int) {
-        holder.render(items[position],fnClick)
+        holder.render(items[position], fnClick)
     }
 
     override fun getItemCount(): Int = items.size
 
-    fun updateListItems(newItems:List<MarvelChars>){
-        this.items =this.items.plus(newItems)//plus agrega a los nuevos elementos
+    fun updateListItems(newItems: List<MarvelChars>) {
+        this.items = this.items.plus(newItems)//plus agrega a los nuevos elementos
+        notifyDataSetChanged()
+    }
+
+    fun replaceListItems(newItems: List<MarvelChars>) {
+        this.items = newItems
         notifyDataSetChanged()
     }
 
