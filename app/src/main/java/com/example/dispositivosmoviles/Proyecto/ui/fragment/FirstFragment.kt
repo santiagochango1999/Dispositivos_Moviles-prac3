@@ -9,10 +9,10 @@ import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dispositivosmoviles.Proyecto.logic.data.MarvelChars
-import com.example.dispositivosmoviles.Proyecto.logic.jikanlogic.JikanAnimeLogic
 import com.example.dispositivosmoviles.Proyecto.logic.marvellogic.MarvelLogic
 import com.example.dispositivosmoviles.Proyecto.ui.activities.DetailsMarvelItem
 import com.example.dispositivosmoviles.Proyecto.ui.fragment.adapters.MarvelAdapter
@@ -26,6 +26,7 @@ class FirstFragment : Fragment() {
 
     private lateinit var binding: FragmentFirstBinding
     private lateinit var lmanager: LinearLayoutManager
+    private lateinit var gManager:GridLayoutManager
     private lateinit var rvAdapter: MarvelAdapter
 //    private var rvAdapter: MarvelAdapter  MarvelAdapter{sendMarvelItem(it)}
 
@@ -46,25 +47,20 @@ class FirstFragment : Fragment() {
             LinearLayoutManager.VERTICAL,
             false
         )
+        gManager=GridLayoutManager(requireActivity(),2)
         // Inflate the layout for this fragment
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
-
+//----------------------------------------------------------------------------------NOMBRES
         val names = arrayListOf<String>("carlos", "Xavier", "Andres", "Pepe")
-
-        //
-        //val adapter=ArrayAdapter<String>(
-        //  requireActivity(),android.R.layout.simple_spinner_item
-        //,names)
-
         val adapter = ArrayAdapter<String>(
             requireActivity(), R.layout.simple_spinner, names
         )
-
         binding.spinnerFfirst.adapter = adapter
+//------------------------------------------------------------------------------
 
         chargeDataRV("cap")
 
@@ -86,13 +82,14 @@ class FirstFragment : Fragment() {
 
                         if ((v + p) >= t) {
                             lifecycleScope.launch(Dispatchers.IO) {
-                                val newItems = JikanAnimeLogic().getAllanimes()
+                                val items = MarvelLogic().getAllMarvelChars(0, 99)
+//                                val newItems = JikanAnimeLogic().getAllanimes()
                                 /* val newItems = MarvelLogic().getMarvelChars(
                                     name = "spider",
                                     limit = 5
                                 )*/
                                 withContext(Dispatchers.Main) {
-                                    rvAdapter.updateListItems(newItems)
+                                    rvAdapter.updateListItems(items)
                                 }
 
                             }
@@ -108,8 +105,6 @@ class FirstFragment : Fragment() {
             }
             rvAdapter.replaceListItems(newItems)
         }
-
-
     }
 
     fun sendMarvelItem(item: MarvelChars) {
@@ -127,10 +122,7 @@ class FirstFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.Main) {
             //cambiamos a IO porque era una coneccion de dato
             marvelCharsItems = withContext(Dispatchers.IO) {
-                return@withContext (MarvelLogic().getMarvelChars(
-                    "spider",
-                    page * 5
-                ))
+                return@withContext (MarvelLogic().getAllMarvelChars(0, 99))
             }
             rvAdapter = MarvelAdapter(
                 marvelCharsItems,
@@ -141,16 +133,11 @@ class FirstFragment : Fragment() {
 
             binding.rvMarvelChars.apply {
                 this.adapter = rvAdapter
+                //lo reemplazo por otro manager
                 this.layoutManager = lmanager
-                /*this.layoutManager=LinearLayoutManager(
-                    requireActivity(),
-                    LinearLayoutManager.VERTICAL,
-                    false
-                )*/
+
             }
 
         }
-
-
     }
 }

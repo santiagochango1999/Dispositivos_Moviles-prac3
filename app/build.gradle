@@ -2,7 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id "kotlin-parcelize"
-    id "kotlin-kapt"
+//    id "kotlin-kapt"
+
 }
 
 android {
@@ -29,6 +30,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -36,6 +38,10 @@ android {
     buildFeatures {
         viewBinding = true //true para que la vista sea arrastrada.
     }
+
+//    kotlin {
+//        jvmToolchain(8)
+//    }
 }
 
 dependencies {
@@ -68,8 +74,8 @@ dependencies {
     //  def val room_version = "2.5.0"
     //ROOM
 
-    implementation("androidx.room:room-runtime:2.5.0")
-    annotationProcessor("androidx.room:room-compiler:2.5.0")
-    // To use Kotlin annotation processing tool (kapt)
-    kapt("androidx.room:room-compiler:2.5.0")
+//    implementation("androidx.room:room-runtime:2.5.2")
+//    annotationProcessor("androidx.room:room-compiler:2.5.2")
+//    // To use Kotlin annotation processing tool (kapt)
+//    kapt("androidx.room:room-compiler:2.5.2")
 }
