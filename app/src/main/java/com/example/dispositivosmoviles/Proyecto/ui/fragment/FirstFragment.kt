@@ -62,10 +62,10 @@ class FirstFragment : Fragment() {
         binding.spinnerFfirst.adapter = adapter
 //------------------------------------------------------------------------------
 
-        chargeDataRV("cap")
+        chargeDataRV("")
 
         binding.rvSwipe.setOnRefreshListener {
-            chargeDataRV("cap")
+            chargeDataRV("")
             binding.rvSwipe.isRefreshing = false
         }//ayuda a cargar con el rvswipe
 
@@ -99,11 +99,13 @@ class FirstFragment : Fragment() {
             })
 
         //nos sirve para filtrar la informacion
-        binding.textfilder.addTextChangedListener { textfilter ->
+        binding.textfilder.addTextChangedListener {
+                textfilter ->
             var newItems = marvelCharsItems.filter { items ->
                 items.name.lowercase().contains(textfilter.toString().lowercase())
             }
             rvAdapter.replaceListItems(newItems)
+//            chargeDataRV(binding.textfilder.text.toString())
         }
     }
 
@@ -123,6 +125,7 @@ class FirstFragment : Fragment() {
             //cambiamos a IO porque era una coneccion de dato
             marvelCharsItems = withContext(Dispatchers.IO) {
                 return@withContext (MarvelLogic().getAllMarvelChars(0, 99))
+//                return@withContext (MarvelLogic().getMarvelChars(search,99))
             }
             rvAdapter = MarvelAdapter(
                 marvelCharsItems,
