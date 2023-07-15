@@ -11,10 +11,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dispositivosmoviles.Proyecto.logic.data.MarvelChars
+import com.example.dispositivosmoviles.Proyecto.logic.data.getMarvelCharsDB
 import com.example.dispositivosmoviles.Proyecto.logic.jikanlogic.JikanAnimeLogic
 import com.example.dispositivosmoviles.Proyecto.logic.marvellogic.MarvelLogic
 import com.example.dispositivosmoviles.Proyecto.ui.activities.DetailsMarvelItem
 import com.example.dispositivosmoviles.Proyecto.ui.fragment.adapters.MarvelAdapter
+import com.example.dispositivosmoviles.Proyecto.ui.utilities.DispositivosMoviles
 import com.example.dispositivosmoviles.databinding.FragmentSegundoBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -52,6 +54,18 @@ class segundoFragment : Fragment() {
 //        i.putExtra("name", item.name)
 //        i.putExtra("comic", item.comic)
         startActivity(i)
+    }
+
+    fun saveMarvelItem(item: MarvelChars): Boolean {
+        lifecycleScope.launch(Dispatchers.Main) {
+            withContext(Dispatchers.IO) {
+                DispositivosMoviles
+                    .getDbInstance()
+                    .marvelDao()
+                    .insertMarvelChar(listOf(item.getMarvelCharsDB()))
+            }
+        }
+        return true
     }
 
     override fun onStart() {
@@ -98,7 +112,7 @@ class segundoFragment : Fragment() {
                     search, 99
                 ))
             }
-            rvAdapter = MarvelAdapter(marvelCharsItems, fnClick = { sendMarvelItem(it) })
+            rvAdapter = MarvelAdapter(marvelCharsItems, fnClick = { sendMarvelItem(it) },  fnsave = { saveMarvelItem(it)})
             binding.rvMarvelChars.apply {
                 this.adapter = rvAdapter
                 this.layoutManager = lmanager

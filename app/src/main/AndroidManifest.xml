@@ -2,9 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+
+        android:name=".Proyecto.ui.utilities.DispositivosMoviles"
 
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
@@ -20,10 +23,10 @@
             android:name=".Proyecto.ui.activities.DetailsMarvelItem"
             android:exported="false" />
         <activity
-            android:name=".Proyecto.ui.activities.MainActivity"
+            android:name=".Proyecto.ui.activities.PrincipalActivity"
             android:exported="false"></activity>
         <activity
-            android:name=".Proyecto.ui.activities.PrincipalActivity"
+            android:name=".Proyecto.ui.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
