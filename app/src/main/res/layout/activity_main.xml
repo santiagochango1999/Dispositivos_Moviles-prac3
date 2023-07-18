@@ -31,10 +31,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.733"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/btnResult" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnResult"
         style="@style/ButtonsGeneral"
         android:layout_width="wrap_content"
         android:layout_height="44dp"
@@ -185,7 +185,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnSher"
         style="@style/ButtonsGeneral"
         android:layout_width="wrap_content"
         android:layout_height="44dp"

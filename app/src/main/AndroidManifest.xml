@@ -6,10 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-
         android:name=".Proyecto.ui.utilities.DispositivosMoviles"
-
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -18,13 +15,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DispositivosMoviles"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".Proyecto.ui.activities.ResultActiviry"
+            android:exported="false" />
         <activity
             android:name=".Proyecto.ui.activities.DetailsMarvelItem"
             android:exported="false" />
         <activity
             android:name=".Proyecto.ui.activities.PrincipalActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".Proyecto.ui.activities.MainActivity"
             android:exported="true">
