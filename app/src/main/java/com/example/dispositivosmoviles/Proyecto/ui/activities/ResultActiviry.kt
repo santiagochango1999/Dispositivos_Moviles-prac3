@@ -20,11 +20,15 @@ class ResultActiviry : AppCompatActivity() {
         super.onStart()
         binding.btnResult.setOnClickListener {
 
-            setResult(RESULT_OK)
+            val i=Intent()
+            i.putExtra("result","resultado exitosos")
+            setResult(RESULT_OK,i)
             finish()
         }
         binding.btnFlase.setOnClickListener {
-            setResult(RESULT_CANCELED)
+            val i=Intent()
+            i.putExtra("result","resultado fallido")
+            setResult(RESULT_CANCELED,i)
             finish()
         }
     }
