@@ -4,8 +4,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".Proyecto.ui.utilities.DispositivosMoviles"
@@ -20,6 +20,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Proyecto.ui.activities.MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".Proyecto.ui.activities.ResultActiviry"
             android:exported="false" />
         <activity
@@ -29,7 +32,7 @@
             android:name=".Proyecto.ui.activities.PrincipalActivity"
             android:exported="false" />
         <activity
-            android:name=".Proyecto.ui.activities.MainActivity"
+            android:name=".Proyecto.ui.activities.CameraActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
