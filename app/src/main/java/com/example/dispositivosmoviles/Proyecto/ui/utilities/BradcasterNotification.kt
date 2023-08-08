@@ -12,6 +12,7 @@ import com.example.dispositivosmoviles.Proyecto.ui.activities.CameraActivity
 import com.example.dispositivosmoviles.R
 
 class BradcasterNotification : BroadcastReceiver() {
+
     val CHANNEL: String = "Notificaciones"
 
     override fun onReceive(context: Context, intent: Intent) {

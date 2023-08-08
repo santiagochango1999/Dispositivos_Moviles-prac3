@@ -6,8 +6,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <application
         android:name=".Proyecto.ui.utilities.DispositivosMoviles"
@@ -21,10 +21,17 @@
         android:theme="@style/Theme.DispositivosMoviles"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".Proyecto.ui.activities.ProgressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Proyecto.ui.activities.NotificactionActivity"
+            android:exported="false" />
 
-        <receiver android:name=".Proyecto.ui.utilities.BradcasterNotification"
-            android:enabled="true"/>
-        
+        <receiver
+            android:name=".Proyecto.ui.utilities.BradcasterNotification"
+            android:enabled="true" />
+
         <activity
             android:name=".Proyecto.ui.activities.CameraActivity"
             android:exported="false" />
@@ -41,7 +48,7 @@
             android:name=".Proyecto.ui.activities.PrincipalActivity"
             android:exported="false" />
         <activity
-            android:name=".Proyecto.ui.activities.NotificactionActivity"
+            android:name=".Proyecto.ui.activities.BiometricActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
