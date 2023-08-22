@@ -13,6 +13,7 @@ import android.os.Looper
 import android.provider.Settings
 import android.speech.RecognizerIntent
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult.*
 import androidx.appcompat.app.AlertDialog
@@ -39,7 +40,11 @@ import com.google.android.gms.location.LocationSettingsStatusCodes
 import com.google.android.gms.location.Priority
 import com.google.android.gms.location.SettingsClient
 import com.google.android.gms.tasks.Task
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.security.Permission
@@ -53,11 +58,16 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 
 class MainActivity : AppCompatActivity() {
 
+    //variable de firebase
+    private lateinit var auth: FirebaseAuth
+//    private val TAG = "UCE"
+
     private lateinit var binding: ActivityMainBinding
     // (Lateinit) un gran poder conlleva una gran responsabilidad
 
     //---------- localicacion del usuario
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
     //-------------------------------
 //UBICACION Y GPS
     private lateinit var locationRequest: LocationRequest
@@ -109,6 +119,8 @@ class MainActivity : AppCompatActivity() {
             }
             sn.setText(message)
             sn.show()
+
+
         }
 
     @SuppressLint("MissingPermission")
@@ -128,8 +140,8 @@ class MainActivity : AppCompatActivity() {
                             }
 
                         }
-                        addOnFailureListener {ex->
-                            if(ex is ResolvableApiException){
+                        addOnFailureListener { ex ->
+                            if (ex is ResolvableApiException) {
                                 ex.startResolutionForResult(
                                     this@MainActivity,
                                     LocationSettingsStatusCodes.RESOLUTION_REQUIRED
@@ -200,14 +212,98 @@ class MainActivity : AppCompatActivity() {
         }
 
         client = LocationServices.getSettingsClient(this)
-        locationSettingRequest= LocationSettingsRequest.Builder()
+        locationSettingRequest = LocationSettingsRequest.Builder()
             .addLocationRequest(locationRequest).build()
 
+
+        //---------------------------firebase
+        auth = Firebase.auth
+//        binding.btnLogin.setOnClickListener {
+//            signInWithEmailAndPassword(
+//                binding.txtUser.text.toString(),
+//                binding.txtPassword.text.toString()
+//            )
+//        }
+        binding.btnLogin.setOnClickListener {
+            authWithFirebaseEmail(
+                binding.txtUser.text.toString(),
+                binding.txtPassword.text.toString()
+            )
+        }
+
+    }
+
+    private fun authWithFirebaseEmail(email: String, password: String) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(Constants.TAG, "createUserWithEmail:success")
+                    val user = auth.currentUser
+                    Toast.makeText(
+                        baseContext,
+                        "Authentication success.",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(Constants.TAG, "createUserWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        baseContext,
+                        "Authentication failed.",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+
+                }
+            }
+    }
+
+    private fun signInWithEmailAndPassword(email: String, password: String) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(Constants.TAG, "createUserWithEmail:success")
+                    val user = auth.currentUser
+                    startActivity(Intent(this,BiometricActivity::class.java))
+
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(Constants.TAG, "createUserWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        baseContext,
+                        "Authentication failed.",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                }
+            }
+
+    }
+
+    private fun recoveryPasswordWitnEmail(email: String) {
+        auth.sendPasswordResetEmail(email)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(
+                        this,
+                        "Correo de recuperacion enviado correctamente",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    MaterialAlertDialogBuilder(this).apply {
+                        setTitle("Alerta")
+                        setMessage("Su correo de recuperacion ha sido procesado correcto")
+                        setCancelable(true)
+                    }
+                }
+
+            }
     }
 
     override fun onStart() {
         super.onStart()
-        initClass()
+//        initClass()
         //val db = DispositivosMoviles.getDbInstance()
         //db.marvelDao()
 
@@ -394,8 +490,8 @@ class MainActivity : AppCompatActivity() {
     }
     //-----------------------------
 
-    private fun text(){
-        var location=MyLocationManager(this)
+    private fun text() {
+        var location = MyLocationManager(this)
         location.getUserLocation()
     }
 }
