@@ -55,7 +55,7 @@ import java.util.UUID
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")// es una percostencia temporal
 //---------------------
 
-
+//bueno comencemos
 class MainActivity : AppCompatActivity() {
 
     //variable de firebase
